@@ -4,9 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
     
-    <h1>Prueba 1</h1>
+
+    <!-- PANTALLA DE INICIO --> 
+     <div id="splash-screen" class="container">
+        <img src="./images/PantallaInicio.png" width="900" alt="logo">
+        <br>
+        <button id="start-btn">Start</button>
+     </div>
+
+    <!-- PANTALLA DE JUEGO --> 
+    <div id="game-screen" class="container">
+        <h3>Score: <samp id="score">0</samp></h3>
+        <div id="game-box">
+        </div>
+    </div>
+
+
+
+    <script src="./js/main.js"></script>
+    <script src="./js/pacman.js"></script>
+    <script src="./js/bolas.js"></script>
+    <script src="./js/obstaculos.js"></script>
 </body>
 </html>

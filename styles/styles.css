@@ -1,0 +1,39 @@
+#start-btn {
+    background-color: red;
+    color: white;
+    padding: 20px;
+    font-size: 30px;
+    margin-top: 40px;
+    border-radius: 10px;
+    font-family:'Courier New', Courier, monospace;
+    background-position: center;
+
+    
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+}
+
+#game-box {
+    background-color: antiquewhite;
+    width: 900px;
+    height: 900px;
+
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+
+    background-image: url(../images/Cajadejuego.png);
+    background-position: center;
+    background-size: cover;
+}
+
+
+#game-screen {
+    display: none;
+}
