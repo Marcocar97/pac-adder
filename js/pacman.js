@@ -17,41 +17,26 @@ class Pacman {
     this.node.style.height = `${this.h}px`
     
     this.pacmanSpeed = 2
-    this.movimientoTop = 15
-    this.movimientoBottom = 15
-    this.movimientoLeft = 15
-    this.movimientoRigth = 15
+    
 
-    // NUEVO IDEA PARA COLA
+    this.orientacion = "derecha"
 
 }
 
-movimientoInicial(){
+movimiento(){
+    if(this.orientacion === "derecha"){
     this.x += this.pacmanSpeed
+    this.node.style.left = `${this.x}px`}
+    else if (this.orientacion === "izquierda"){
+     this.x -= this.pacmanSpeed
     this.node.style.left = `${this.x}px`
-}
-
-movimientoHaciaTop(){
-
-    this.y -= this.movimientoTop
+    } else if (this.orientacion === "arriba"){
+        this.y -= this.pacmanSpeed
     this.node.style.top = `${this.y}px`
 
-}
-
-movimientoHaciaBottom(){
-    this.y += this.movimientoBottom
+    } else if (this.orientacion === "abajo"){
+     this.y += this.pacmanSpeed
     this.node.style.top = `${this.y}px`
-
+    }
 }
-
-movimientoHaciaLeft(){
-    this.x -= this.movimientoLeft
-    this.node.style.left = `${this.x}px`
-
-}
-
-// NUEVO IDEA PARA COLA
-
-
-
 }
