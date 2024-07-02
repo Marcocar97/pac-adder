@@ -22,6 +22,8 @@ class Pacman {
     this.movimientoLeft = 15
     this.movimientoRigth = 15
 
+    // NUEVO IDEA PARA COLA
+
 }
 
 movimientoInicial(){
@@ -47,5 +49,9 @@ movimientoHaciaLeft(){
     this.node.style.left = `${this.x}px`
 
 }
+
+// NUEVO IDEA PARA COLA
+
+
 
 }

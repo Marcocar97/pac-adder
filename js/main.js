@@ -1,6 +1,7 @@
 // PANTALLAS
 const gameScreenNode = document.querySelector("#game-screen")
 const splashScreenNode = document.querySelector("#splash-screen")
+const gameOverScreenNode = document.querySelector("#game-over")
 
 // GAME BOX
 
@@ -8,6 +9,7 @@ const gameBoxNode = document.querySelector("#game-box")
 
 // BOTONES
 const startBtnNode = document.querySelector("#start-btn")
+const resetBtnNode = document.querySelector("#reset-btn")
 
 // ELEMENTOS DEL GAME SCREEN
 
@@ -17,8 +19,10 @@ const scoreNode = document.querySelector("#score")
 
 let pacmanOb = null
 let obstaculoObj = null
+let obstaculoArr =[]
 let bolaObj = null
 let bolasArr = []
+let nextObst = 3
 
 // FUNCIONES GLOBALES 
 
@@ -32,7 +36,6 @@ function startGame() {
     pacmanOb = new Pacman()
 
     bolasAppear()
-    
 
 
     setInterval (() => {
@@ -42,7 +45,6 @@ function startGame() {
     }, Math.round(1000/60))
 
 
-    
 
 
 
@@ -53,29 +55,27 @@ function gameLoop(){
 pacmanOb.movimientoInicial()
 bolaCollision()
 bolaDissapear()
-obstaculoAppear()
 }
 
 
 function obstaculoAppear(){
 
-    let randomPosititioY = Math.random() * 720
+    let randomPosititioY = Math.random() * 650
 
-    let randomPositionX = Math.random() * 740
+    let randomPositionX = Math.random() * 650
 
     let distanciaEntreObstaculos = 100
 
-    if(scoreNode.innerText > "2" && scoreNode.innerText % 2){
-        obstaculoObj = new Obstaculos(randomPosititioY + distanciaEntreObstaculos, randomPositionX )}
+        obstaculoObj = new Obstaculos(randomPosititioY + distanciaEntreObstaculos, randomPositionX )
+        obstaculoArr.push(obstaculoObj)
     
-
 }
 
 function bolasAppear(){
 
-    let randomPosititionBolaY = Math.random() * 720
+    let randomPosititionBolaY = Math.random() * 650
 
-    let randomPositionBolaX = Math.random() * 740
+    let randomPositionBolaX = Math.random() * 650
 
     let distanciaEntreBolas = 100
 
@@ -93,6 +93,11 @@ function bolaCollision (){
 
             scoreNode.innerText ++
             bolasAppear()
+            if (scoreNode.innerText >= nextObst){
+                obstaculoAppear()
+                nextObst += 3
+            }
+    
         
     } 
 }
