@@ -11,6 +11,8 @@ const gameBoxNode = document.querySelector("#game-box");
 
 const collisionSound = document.querySelector("#choque")
 const recogerSoun = document.querySelector("#recogida")
+const movingSound = document.querySelector("#movimieno")
+movingSound.playbackRate = 2.0
 
 
 // BOTONES
@@ -45,12 +47,13 @@ function startGame() {
 
   gameScreenNode.style.display = "flex";
 
+  score = 0
+
   pacmanOb = new Pacman();
 
 
   obstaculoArr = [];
   bolasArr = [];
-  score = 0;
   nextObst = 3
 
   bolasAppear();
@@ -111,8 +114,9 @@ function obstaculoAppear() {
       pacmanOb.x + pacmanOb.w > obstaculoObj.x &&
       pacmanOb.y < obstaculoObj.y + obstaculoObj.h &&
       pacmanOb.y + pacmanOb.h >obstaculoObj.y
-    ) {randomPositionX = Math.random() * 400; randomPosititioY = Math.random() * 400, console.log("ladrillazo")} else { 
- obstaculoArr.push(obstaculoObj); console.log("obstaculo creado")}
+    ) {randomPositionX = Math.random() * 400; randomPosititioY = Math.random() * 400
+    } else { 
+ obstaculoArr.push(obstaculoObj)}
 }
 
 function bolasAppear() {
@@ -166,7 +170,6 @@ function obstaculoColission() {
       pacmanOb.y < eachObstaculo.y + eachObstaculo.h &&
       pacmanOb.y + pacmanOb.h > eachObstaculo.y
     ) {
-        collisionSound.play()
       gameOver();
 
     }
@@ -190,6 +193,9 @@ function gameOver() {
 
   pacmanOb.node.remove();
   gameBoxNode.innerHTML = null;
+
+  collisionSound.play()
+
 }
 
 
@@ -206,15 +212,19 @@ window.addEventListener("keydown", (event) => {
   if (event.code === "ArrowUp") {
     pacmanOb.orientacion = "arriba";
     pacmanOb.node.src = "./images/Arriba.png";
+    movingSound.play()
   } else if (event.code === "ArrowDown") {
     pacmanOb.orientacion = "abajo";
     pacmanOb.node.src = "./images/Abajo.png";
+    movingSound.play()
   } else if (event.code === "ArrowLeft") {
     pacmanOb.orientacion = "izquierda";
     pacmanOb.node.src = "./images/Izquierda.png";
+    movingSound.play()
   } else if (event.code === "ArrowRight") {
     pacmanOb.orientacion = "derecha";
     pacmanOb.node.src = "./images/Pacman.png";
+    movingSound.play()
   }
 });
 
