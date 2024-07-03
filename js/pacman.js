@@ -9,6 +9,8 @@ class Pacman {
     this.y = 350
     this.w = 50
     this.h = 50
+
+
     
     this.node.style.position = "absolute"
     this.node.style.left = `${this.x}px`
@@ -38,5 +40,8 @@ movimiento(){
      this.y += this.pacmanSpeed
     this.node.style.top = `${this.y}px`
     }
+
+    
 }
 }
+

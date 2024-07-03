@@ -22,6 +22,10 @@ const resetBtnNode = document.querySelector("#reset-btn");
 const scoreNode = document.querySelector("#score");
 const highscoreNode = document.querySelector("#highscore")
 
+let score = 0
+let highscore = 0
+
+
 // VARIABLES GLOBALES
 
 let pacmanOb = null;
@@ -46,7 +50,7 @@ function startGame() {
 
   obstaculoArr = [];
   bolasArr = [];
-  scoreNode.innerText = 0;
+  score = 0;
   nextObst = 3
 
   bolasAppear();
@@ -66,27 +70,27 @@ function gameLoop() {
   resolveCollisions(obstaculoArr, bolasArr); 
   resolveCollisions(bolasArr, obstaculoArr); 
 
-  if (pacmanOb){
-  resolveCollisionsWithOtro(obstaculoArr, pacmanOb); 
-  }
-  
 }
 
 
 
 // VERIFICAR COLISION
 
-function isColliding(obj1, obj2) { if ( obj1.x < obj2.x + obj2.width && obj1.x + obj1.width > obj2.x && obj1.y < obj2.y + obj2.height && obj1.y + obj1.height > obj2.y ) { 
+function isColliding(obj1, obj2) { 
+    if ( obj1.x < obj2.x + obj2.w && 
+        obj1.x + obj1.w > obj2.x && 
+        obj1.y < obj2.y + obj2.h && 
+        obj1.y + obj1.h > obj2.y ) { 
 
 obj1.x = Math.random() * 400; obj1.y = Math.random() * 400; } } 
 
 // Función para resolver colisiones entre obstaculoArr y bolasArr 
 
- function resolveCollisions(arr1, arr2) { arr1.forEach(obj1 => { arr2.forEach(obj2 => { isColliding(obj1, obj2); }); }); } 
+ function resolveCollisions(arr1, arr2) { 
+    arr1.forEach(obj1 => { 
+        arr2.forEach(obj2 => { 
+       if ( isColliding(obj1, obj2)){console.log("detectado")}; }); }); } 
 
- // Función para resolver colisiones entre obstaculoArr y el objeto Otro si existe 
-    
-function resolveCollisionsWithOtro(arr, obj) { arr.forEach(obj1 => { isColliding(obj1, obj); }); }  
 
 // VERIFICAR COLISION
 
@@ -101,7 +105,14 @@ function obstaculoAppear() {
     randomPosititioY,
     randomPositionX
   );
-  obstaculoArr.push(obstaculoObj);
+  // si esta en la misma posision que panda se cambia la posicion
+ if (
+      pacmanOb.x < obstaculoObj.x + obstaculoObj.w &&
+      pacmanOb.x + pacmanOb.w > obstaculoObj.x &&
+      pacmanOb.y < obstaculoObj.y + obstaculoObj.h &&
+      pacmanOb.y + pacmanOb.h >obstaculoObj.y
+    ) {randomPositionX = Math.random() * 400; randomPosititioY = Math.random() * 400, console.log("ladrillazo")} else { 
+ obstaculoArr.push(obstaculoObj); console.log("obstaculo creado")}
 }
 
 function bolasAppear() {
@@ -122,12 +133,21 @@ function bolaCollision() {
       pacmanOb.y + pacmanOb.h > eachBola.y
     ) {
         recogerSoun.play()
-      scoreNode.innerText++; if (scoreNode.innerText > highscoreNode.innerText){
-        highscoreNode.innerText = scoreNode.innerText
-      }
+
+        // SCORE
+      score++
+      scoreNode.innerText = score
+
+      // highscore
+
+      if(score > highscore)
+      highscore = score
+      highscoreNode.innerText = highscore    
+
       bolasArr.splice(index, 1);
       eachBola.node.remove()
       bolasAppear();
+      
       if (scoreNode.innerText >= nextObst) {
         obstaculoAppear();
         nextObst += 3;
@@ -171,6 +191,8 @@ function gameOver() {
   pacmanOb.node.remove();
   gameBoxNode.innerHTML = null;
 }
+
+
 
 // GAME LOOP INTERVAL
 
