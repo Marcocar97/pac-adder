@@ -32,8 +32,8 @@
 
 #game-box {
     background-color: rgb(248, 254, 73);
-    width: 900px;
-    height: 900px;
+    width: 600px;
+    height: 600px;
 
     position: relative;
     overflow: hidden;

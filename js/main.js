@@ -7,6 +7,13 @@ const gameOverScreenNode = document.querySelector("#game-over");
 
 const gameBoxNode = document.querySelector("#game-box");
 
+// AUDIOS
+
+const collisionSound = document.querySelector("#choque")
+const recogerSoun = document.querySelector("#recogida")
+const juegoSound = document.querySelector("#juego")
+
+
 // BOTONES
 const startBtnNode = document.querySelector("#start-btn");
 const resetBtnNode = document.querySelector("#reset-btn");
@@ -25,8 +32,7 @@ let bolasArr = [];
 let nextObst = 3;
 let IntervalId1 = null;
 
-let bordeDerecho = `840px`;
-let bordeInferior = `840px`;
+let bordeBox = gameBoxNode.offsetWidth
 
 // FUNCIONES GLOBALES
 
@@ -36,6 +42,7 @@ function startGame() {
   gameScreenNode.style.display = "flex";
 
   pacmanOb = new Pacman();
+
 
   obstaculoArr = [];
   bolasArr = [];
@@ -57,9 +64,9 @@ function gameLoop() {
 }
 
 function obstaculoAppear() {
-  let randomPosititioY = Math.random() * 650;
+  let randomPosititioY = Math.random() * 400;
 
-  let randomPositionX = Math.random() * 650;
+  let randomPositionX = Math.random() * 400;
 
 
   let obstaculoObj = new Obstaculos(
@@ -70,9 +77,9 @@ function obstaculoAppear() {
 }
 
 function bolasAppear() {
-  let randomPosititionBolaY = Math.random() * 650;
+  let randomPosititionBolaY = Math.random() * 400;
 
-  let randomPositionBolaX = Math.random() * 650;
+  let randomPositionBolaX = Math.random() * 400;
 
   let bolaObj = new Bolas(randomPosititionBolaY, randomPositionBolaX);
   bolasArr.push(bolaObj);
@@ -86,6 +93,7 @@ function bolaCollision() {
       pacmanOb.y < eachBola.y + eachBola.h &&
       pacmanOb.y + pacmanOb.h > eachBola.y
     ) {
+        recogerSoun.play()
       scoreNode.innerText++;
       bolasArr.splice(index, 1);
       eachBola.node.remove()
@@ -94,6 +102,7 @@ function bolaCollision() {
         obstaculoAppear();
         nextObst += 3;
         pacmanOb.pacmanSpeed++
+        
       }
     }
   });
@@ -107,7 +116,9 @@ function obstaculoColission() {
       pacmanOb.y < eachObstaculo.y + eachObstaculo.h &&
       pacmanOb.y + pacmanOb.h > eachObstaculo.y
     ) {
+        collisionSound.play()
       gameOver();
+
     }
   });
 }
@@ -115,11 +126,11 @@ function obstaculoColission() {
 function bordesColission() {
   if (pacmanOb.x < 0) {
     gameOver();
-  } else if (pacmanOb.x > 860) {
+  } else if (pacmanOb.x > 560) {
     gameOver();
   } else if (pacmanOb.y < 0) {
     gameOver();
-  } else if (pacmanOb.y > 860) gameOver();
+  } else if (pacmanOb.y > 560) gameOver();
 }
 
 function gameOver() {
