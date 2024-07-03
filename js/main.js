@@ -11,7 +11,6 @@ const gameBoxNode = document.querySelector("#game-box");
 
 const collisionSound = document.querySelector("#choque")
 const recogerSoun = document.querySelector("#recogida")
-const juegoSound = document.querySelector("#juego")
 
 
 // BOTONES
@@ -21,6 +20,7 @@ const resetBtnNode = document.querySelector("#reset-btn");
 // ELEMENTOS DEL GAME SCREEN
 
 const scoreNode = document.querySelector("#score");
+const highscoreNode = document.querySelector("#highscore")
 
 // VARIABLES GLOBALES
 
@@ -61,7 +61,35 @@ function gameLoop() {
   bolaCollision();
   obstaculoColission();
   bordesColission();
+
+  // VERIFICAR COLISSION
+  resolveCollisions(obstaculoArr, bolasArr); 
+  resolveCollisions(bolasArr, obstaculoArr); 
+
+  if (pacmanOb){
+  resolveCollisionsWithOtro(obstaculoArr, pacmanOb); 
+  }
+  
 }
+
+
+
+// VERIFICAR COLISION
+
+function isColliding(obj1, obj2) { if ( obj1.x < obj2.x + obj2.width && obj1.x + obj1.width > obj2.x && obj1.y < obj2.y + obj2.height && obj1.y + obj1.height > obj2.y ) { 
+
+obj1.x = Math.random() * 400; obj1.y = Math.random() * 400; } } 
+
+// Función para resolver colisiones entre obstaculoArr y bolasArr 
+
+ function resolveCollisions(arr1, arr2) { arr1.forEach(obj1 => { arr2.forEach(obj2 => { isColliding(obj1, obj2); }); }); } 
+
+ // Función para resolver colisiones entre obstaculoArr y el objeto Otro si existe 
+    
+function resolveCollisionsWithOtro(arr, obj) { arr.forEach(obj1 => { isColliding(obj1, obj); }); }  
+
+// VERIFICAR COLISION
+
 
 function obstaculoAppear() {
   let randomPosititioY = Math.random() * 400;
@@ -94,7 +122,9 @@ function bolaCollision() {
       pacmanOb.y + pacmanOb.h > eachBola.y
     ) {
         recogerSoun.play()
-      scoreNode.innerText++;
+      scoreNode.innerText++; if (scoreNode.innerText > highscoreNode.innerText){
+        highscoreNode.innerText = scoreNode.innerText
+      }
       bolasArr.splice(index, 1);
       eachBola.node.remove()
       bolasAppear();
