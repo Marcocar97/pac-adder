@@ -147,7 +147,8 @@ function bolaCollision() {
 
       if (scoreNode.innerText >= nextObst) {
         obstaculoAppear();
-        nextObst += 3;
+        if(NormalMode) {nextObst += 3;}
+        else {nextObst += 6}
         pacmanOb.pacmanSpeed++;
       }
     }
