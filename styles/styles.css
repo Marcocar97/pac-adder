@@ -74,3 +74,27 @@
     font-size: 20px;
     align-items: center;
 }
+
+
+/* #modeContainer { 
+    display: flex; margin-top: 10px; 
+} 
+.mode { 
+    padding: 10px; cursor: pointer; border: 1px solid black; margin-right: 5px;
+} 
+.active { 
+    background-color: green; color: white; }  
+    */
+
+#modeContainer { 
+    display: flex; justify-content: center; margin-top: 20px;
+} 
+
+.mode { 
+    font-size: 16px; font-weight: bold; padding: 15px 25px; margin: 0 10px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; outline: none; 
+} 
+
+.active { 
+    background-color: #4CAF50; /* Verde */ color: white; 
+
+}
