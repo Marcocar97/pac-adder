@@ -22,30 +22,26 @@ movingSound.volume = 0.05;
 // BOTONES
 const startBtnNode = document.querySelector("#start-btn");
 const resetBtnNode = document.querySelector("#reset-btn");
-const easyModeBtn = document.querySelector("#easyMode")
-const normalModeBtn = document.querySelector("#normalMode")
+const easyModeBtn = document.querySelector("#easyMode");
+const normalModeBtn = document.querySelector("#normalMode");
 
 // ELEMENTOS DEL GAME SCREEN
 
 const scoreNode = document.querySelector("#score");
 const highscoreNode = document.querySelector("#highscore");
 
-let score = 0;
-let highscore = 0;
-
 // VARIABLES GLOBALES
 
 let pacmanOb = null;
-let obstaculoObj = 0
+let obstaculoObj = 0;
 let obstaculoArr = [];
-//let bolaObj = null
 let bolasArr = [];
 let nextObst = 3;
 let IntervalId1 = null;
-
-let NormalMode = true
-
+let NormalMode = true;
 let bordeBox = gameBoxNode.offsetWidth;
+let score = 0;
+let highscore = 0;
 
 // FUNCIONES GLOBALES
 
@@ -56,7 +52,7 @@ function startGame() {
 
   score = 0;
 
-  NormalMode = true
+  NormalMode = true;
 
   pacmanOb = new Pacman();
 
@@ -93,11 +89,10 @@ function obstaculoAppear() {
   ) {
     obstaculoObj.x = Math.random() * 400;
     obstaculoObj.y = Math.random() * 400;
-    obstaculoObj.node.style.left = `${obstaculoObj.x}px`
-    obstaculoObj.node.style.top = `${obstaculoObj.y}px` 
-  } 
-    obstaculoArr.push(obstaculoObj);
-
+    obstaculoObj.node.style.left = `${obstaculoObj.x}px`;
+    obstaculoObj.node.style.top = `${obstaculoObj.y}px`;
+  }
+  obstaculoArr.push(obstaculoObj);
 }
 
 function bolasAppear() {
@@ -114,10 +109,9 @@ function bolasAppear() {
   ) {
     bolaObj.x = Math.random() * 400;
     bolaObj.y = Math.random() * 400;
-    bolaObj.node.style.left = `${bolaObj.x}px`
-    bolaObj.node.style.top = `${bolaObj.y}px` 
-  } 
-
+    bolaObj.node.style.left = `${bolaObj.x}px`;
+    bolaObj.node.style.top = `${bolaObj.y}px`;
+  }
 
   bolasArr.push(bolaObj);
 }
@@ -147,8 +141,11 @@ function bolaCollision() {
 
       if (scoreNode.innerText >= nextObst) {
         obstaculoAppear();
-        if(NormalMode) {nextObst += 3;}
-        else {nextObst += 6}
+        if (NormalMode) {
+          nextObst += 3;
+        } else {
+          nextObst += 6;
+        }
         pacmanOb.pacmanSpeed++;
       }
     }
@@ -169,32 +166,29 @@ function obstaculoColission() {
 }
 
 function bordesColission() {
-  if (NormalMode){ 
-  if (pacmanOb.x < 0) {
-    gameOver();
-  } else if (pacmanOb.x > 560) {
-    gameOver();
-  } 
-  if (pacmanOb.y < 0) {
-    gameOver();
-  } else if (pacmanOb.y > 560) {
-    gameOver();
+  if (NormalMode) {
+    if (pacmanOb.x < 0) {
+      gameOver();
+    } else if (pacmanOb.x > 560) {
+      gameOver();
+    }
+    if (pacmanOb.y < 0) {
+      gameOver();
+    } else if (pacmanOb.y > 560) {
+      gameOver();
+    }
+  } else {
+    if (pacmanOb.x < 0) {
+      pacmanOb.x = 560;
+    } else if (pacmanOb.x > 560) {
+      pacmanOb.x = 0;
+    } else if (pacmanOb.y < 0) {
+      pacmanOb.y = 560;
+    } else if (pacmanOb.y > 560) {
+      pacmanOb.y = 0;
+    }
   }
-} else {
-  if (pacmanOb.x < 0) {
-    pacmanOb.x = 560
-  } else if (pacmanOb.x > 560) {
-    pacmanOb.x = 0
-  } else if (pacmanOb.y < 0) {
-    pacmanOb.y = 560
-  } else if (pacmanOb.y > 560) {
-    pacmanOb.y = 0
-  }
-
 }
-
-}
-
 
 function gameOver() {
   clearInterval(IntervalId1);
@@ -203,16 +197,14 @@ function gameOver() {
 
   pacmanOb.node.remove();
   gameBoxNode.innerHTML = null;
-  scoreNode.innerText = 0
+  scoreNode.innerText = 0;
 
   collisionSound.play();
 
-  NormalMode = true
-  normalModeBtn.classList.add("active")
-  easyModeBtn.classList.remove("active")
+  NormalMode = true;
+  normalModeBtn.classList.add("active");
+  easyModeBtn.classList.remove("active");
 }
-
-// GAME LOOP INTERVAL
 
 // EVENT LISTENERS
 
@@ -246,13 +238,13 @@ resetBtnNode.addEventListener("click", () => {
 });
 
 easyModeBtn.addEventListener("click", () => {
-  NormalMode = false
-  easyModeBtn.classList.add("active")
-  normalModeBtn.classList.remove("active")
+  NormalMode = false;
+  easyModeBtn.classList.add("active");
+  normalModeBtn.classList.remove("active");
 });
 
 normalModeBtn.addEventListener("click", () => {
-  NormalMode = true
-  normalModeBtn.classList.add("active")
-  easyModeBtn.classList.remove("active")
+  NormalMode = true;
+  normalModeBtn.classList.add("active");
+  easyModeBtn.classList.remove("active");
 });
